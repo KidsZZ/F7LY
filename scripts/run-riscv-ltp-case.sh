@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # 检查是否提供了程序名参数
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <program_name>"
@@ -16,7 +18,7 @@ if [ ! -f "$program_path" ]; then
     exit 1
 fi
 
-# 使用 qemu-riscv64-static 的 strace 模式执行程序
+# 先正常运行一次，再使用 qemu-riscv64-static 的 strace 模式观察系统调用。
 qemu-riscv64-static "$program_path" 2>&1
 echo --------------------------------------------------------
 qemu-riscv64-static -strace "$program_path" 2>&1

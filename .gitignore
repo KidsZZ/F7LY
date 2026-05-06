@@ -39,11 +39,7 @@ disasm_la_busybox_musl.asm
 sdcard-la.img.bak
 disasm_rv_musl_libcso.asm
 outputverbose.txt
-sdcard-la-final.img
-sdcard-rv-final.img
 cfr.c
-sdcard-la-onsite.img
-sdcard-rv-onsite.img
 kernel-rv
 kernel-la
 output-more.txt
@@ -52,3 +48,5 @@ ref.txt
 sdcard-rv.zip
 testsuits/
 kernel-qemu
+*.img
+*.back

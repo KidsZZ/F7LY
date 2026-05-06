@@ -1,3 +1,8 @@
+#!/bin/sh
+
+# 一次性挂载常用比赛镜像，便于本地检查 rootfs 与 libc 依赖。
+set -e
+
 sudo mount -o loop sdcard-rv.img /mnt/sdcard-rv
 sudo mount -o loop sdcard-la.img /mnt/sdcard-la
 sudo mount -o loop sdcard-rv-final.img /mnt/sdcard-rv-final

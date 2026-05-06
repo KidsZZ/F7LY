@@ -26,7 +26,7 @@
 #include "trap/interrupt_stats.hh"
 #include "proc/posix_timers.hh"
 
-// #include "fuckyou.hh"
+// #include "banner.hh"
 // in kernelvec.S, calls kerneltrap().
 extern "C" void kernelvec();
 extern char trampoline[], uservec[], userret[];
@@ -187,7 +187,7 @@ void trap_manager::kerneltrap()
       printfCyan("[kerneltrap]  yield here,p->addr:%x \n", Cpu::get_cpu()->get_cur_proc());
       proc::k_scheduler.yield();
       timeslice = 0;
-      // print_fuckyou();
+      // print_f7ly();
     }
   }
 

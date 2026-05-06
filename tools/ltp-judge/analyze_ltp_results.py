@@ -40,9 +40,11 @@ def analyze_ltp_results(filename="ltp_rank.txt"):
         if not line:  # 跳过空行
             continue
             
-        # 使用正则表达式解析每行数据
-        # 格式: test_name | pass_count | total_count
-        match = re.match(r'^(.+?)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*$', line)
+        # 使用正则表达式解析每行数据。
+        # 当前仓库里的 ltp_rank.txt 有时会带第四列 performance 备注，因此这里兼容：
+        # test_name | pass_count | total_count
+        # test_name | pass_count | total_count | performance
+        match = re.match(r'^(.+?)\s*\|\s*(\d+)\s*\|\s*(\d+)(?:\s*\|.*)?$', line)
         
         if match:
             test_name = match.group(1).strip()

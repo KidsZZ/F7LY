@@ -79,7 +79,7 @@ public:
         static void pop_intr_off();
         static void enable_fpu();
 
-        // 不用这个，太傻逼了，不如w_csr()，以后再删
+        // 该封装暂不使用，当前直接通过 w_csr() 写入更清晰，后续可统一清理。
         static inline void write_csr(uint64 addr, uint64 val)
         {
                 asm volatile("csrw %0, %1" : : "i"(addr), "r"(val));

@@ -3,7 +3,7 @@
 #include "param.h"
 #include "slab.hh"
 #include "mem/riscv/pagetable.hh"
-#include "fuckyou.hh"
+#include "banner.hh"
 #include "physical_memory_manager.hh"
 #include "virtual_memory_manager.hh"
 #include "heap_memory_manager.hh"
@@ -54,7 +54,6 @@ extern "C" void main(uint64 hartid, uint64 dtb_addr)
 
     printfWhite("\n\n"); // 留出顶部空白
     print_f7ly();
-    print_fuckyou();
     printfWhite("\n\n"); // 底部空白
     trap_mgr.init();     // trap初始化
     trap_mgr.inithart(); // 初始化每个核上的csr

@@ -9,6 +9,9 @@ MAKEFLAGS += -j$(NPROC)
 ARCH ?= riscv
 KERNEL_PREFIX=`pwd`
 DIS_PRINTF ?= 0
+RV_DISK_IMG ?= $(KERNEL_PREFIX)/sdcard.img
+LA_DISK_IMG ?= $(KERNEL_PREFIX)/sdcard-la.img
+ROOTFS_BACKUP ?= $(KERNEL_PREFIX)/rootfs/rootfs.img.back
 
 # 检查是否通过目标名称指定架构
 ifneq (,$(filter l loongarch,$(MAKECMDGOALS)))
@@ -176,7 +179,7 @@ endif
 
 all: 
 	@$(MAKE) riscv
-	@if [ -f rootfs.img.back ]; then cp rootfs.img.back rootfs.img; fi
+	@if [ -f $(ROOTFS_BACKUP) ]; then cp $(ROOTFS_BACKUP) rootfs.img; fi
 
 
 riscv:
@@ -236,7 +239,7 @@ $(BUILD_DIR)/$(EASTL_DIR)/libeastl.a:
 
 
 run: build
-	@if [ -f rootfs.img.back ]; then cp rootfs.img.back initrd.img; fi
+	@if [ -f $(ROOTFS_BACKUP) ]; then cp $(ROOTFS_BACKUP) initrd.img; fi
 ifeq ($(ARCH),riscv)
 	$(MAKE) run-riscv ARCH=$(ARCH)
 else ifeq ($(ARCH),loongarch)
@@ -253,7 +256,7 @@ run-riscv:
 		-nographic \
 		-smp 1 \
 		-bios default \
-		-drive file=$(KERNEL_PREFIX)/sdcard.img,if=none,format=raw,id=x0 \
+		-drive file=$(RV_DISK_IMG),if=none,format=raw,id=x0 \
 		-device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0 \
 		-no-reboot \
 		-device virtio-net-device,netdev=net \
@@ -269,7 +272,7 @@ run-loongarch:
 	    -m 128M \
 	    -nographic \
 	    -smp 1 \
-		-drive file=$(KERNEL_PREFIX)/sdcard.img,if=none,format=raw,id=x0 \
+		-drive file=$(LA_DISK_IMG),if=none,format=raw,id=x0 \
 		-device virtio-blk-pci,drive=x0 \
 		-netdev user,id=net \
 		-device virtio-net-pci,netdev=net \
